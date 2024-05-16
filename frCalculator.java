@@ -25,33 +25,44 @@ public class frCalculator extends JFrame {
 
         JPanel pnDisplay1 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
-
-        
         JPanel pnDisplay2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-        
+
         JLabel lbDisplay2 = new JLabel(calculus);
         lbDisplay2.setFont(new Font("Arial", Font.BOLD, 35));
 
         JPanel pnButtons = new JPanel();
         pnButtons.setLayout(new GridLayout(5, 4));
 
-        String[] stringi = { "%", "√", "c", "÷", "1", "2", "3", "x", "4", "5", "6", "-", "7", "8", "9", "+", "#", "0", "#", "=" };
+        String[] stringi = { "%", "c", "⌫", "÷", "1", "2", "3", "x", "4", "5", "6", "-", "7", "8", "9", "+", "#", "0",
+                ".", "=" };
         Color[] bgcolori = {
-            Color.GRAY, Color.GRAY, Color.GRAY, Color.ORANGE,
-            Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
-            Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
-            Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
-            Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE
+                Color.GRAY, Color.GRAY, Color.GRAY, Color.ORANGE,
+                Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
+                Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
+                Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
+                Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE
         };
         Color[] txcolori = {
-            Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
-            Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
-            Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
-            Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
-            Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK
+                Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
+                Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
+                Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
+                Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
+                Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK
         };
         for (int i = 0; i < 20; i++) {
             btColor newButton = new btColor(stringi[i], bgcolori[i], txcolori[i]);
+
+            if (stringi[i] == "⌫") {
+                newButton.addActionListener(l -> {
+                    calculus = calculus.substring(0, calculus.length() - 2);
+                    lbDisplay2.setText(calculus);
+                    pnDisplay2.revalidate();
+                });
+            } else if (stringi[i] == "=") {
+                newButton.addActionListener(l -> {
+                    Calculate cal = new Calculate(calculus);
+                });
+            }
 
             newButton.addActionListener(l -> {
                 calculus += newButton.getText();
