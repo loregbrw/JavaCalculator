@@ -16,6 +16,7 @@ public class frCalculator extends JFrame {
         this.setSize(350, 550);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         JPanel pnCalculator = new JPanel(new BorderLayout());
 
@@ -49,26 +50,53 @@ public class frCalculator extends JFrame {
                 Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK,
                 Color.WHITE, Color.WHITE, Color.WHITE, Color.BLACK
         };
+
+        char[] standardOperators = { '%', '÷', 'x', '-', '+' };
         for (int i = 0; i < 20; i++) {
             btColor newButton = new btColor(stringi[i], bgcolori[i], txcolori[i]);
 
             if (stringi[i] == "⌫") {
                 newButton.addActionListener(l -> {
+                    if (calculus.length() < 2) {
+                        calculus = "";
+                        lbDisplay2.setText(calculus);
+                        pnDisplay2.revalidate();
+                        return;
+                    }
                     calculus = calculus.substring(0, calculus.length() - 2);
                     lbDisplay2.setText(calculus);
                     pnDisplay2.revalidate();
                 });
-            } else if (stringi[i] == "=") {
+            }
+
+            if (stringi[i] == "c") {
                 newButton.addActionListener(l -> {
-                    Calculate cal = new Calculate(calculus);
+                    calculus = "";
+                    lbDisplay2.setText(calculus);
+                    pnDisplay2.revalidate();
                 });
             }
 
-            newButton.addActionListener(l -> {
-                calculus += newButton.getText();
-                lbDisplay2.setText(calculus);
-                pnDisplay2.revalidate();
-            });
+            if (stringi[i] == "=") {
+                newButton.addActionListener(l -> {
+                    Calculate cal = new Calculate(calculus);
+                });
+            } else {
+                int index = i;
+                newButton.addActionListener(l -> {
+
+                    if (Calculate.isOperator(stringi[index].charAt(0)) && stringi[index] != "%"
+                            && calculus.charAt(calculus.length() - 1) == '%' && !(calculus.length() < 1)) {
+                    } else if (Calculate.isOperator(stringi[index].charAt(0)) && (calculus.length() < 1
+                            || Calculate.isOperator(calculus.charAt(calculus.length() - 1)))) {
+                        return;
+                    }
+
+                    calculus += newButton.getText();
+                    lbDisplay2.setText(calculus);
+                    pnDisplay2.revalidate();
+                });
+            }
 
             pnButtons.add(newButton);
         }
