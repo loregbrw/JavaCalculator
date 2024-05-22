@@ -26,6 +26,9 @@ public class frCalculator extends JFrame {
 
         JPanel pnDisplay1 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
+        JLabel lbDisplay1 = new JLabel("");
+        lbDisplay1.setFont(new Font("Arial", Font.BOLD, 30));
+
         JPanel pnDisplay2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
         JLabel lbDisplay2 = new JLabel(calculus);
@@ -34,8 +37,7 @@ public class frCalculator extends JFrame {
         JPanel pnButtons = new JPanel();
         pnButtons.setLayout(new GridLayout(5, 4));
 
-        String[] stringi = { "%", "c", "⌫", "÷", "1", "2", "3", "x", "4", "5", "6", "-", "7", "8", "9", "+", "#", "0",
-                ".", "=" };
+        String[] stringi = { "%", "c", "⌫", "÷", "1", "2", "3", "x", "4", "5", "6", "-", "7", "8", "9", "+", "#", "0", ".", "=" };
         Color[] bgcolori = {
                 Color.GRAY, Color.GRAY, Color.GRAY, Color.ORANGE,
                 Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.ORANGE,
@@ -72,23 +74,33 @@ public class frCalculator extends JFrame {
             if (stringi[i] == "c") {
                 newButton.addActionListener(l -> {
                     calculus = "";
+                    lbDisplay1.setText("");
                     lbDisplay2.setText(calculus);
+                    pnDisplay1.revalidate();
                     pnDisplay2.revalidate();
                 });
             }
 
             if (stringi[i] == "=") {
                 newButton.addActionListener(l -> {
-                    Calculate cal = new Calculate(calculus);
+
+                    for (char c : standardOperators) {
+                        if ((calculus.charAt(calculus.length() - 1) == c && calculus.charAt(calculus.length() - 1) != '%') || (calculus.charAt(calculus.length() - 1) == '.')) {
+                            calculus = calculus.substring(0, calculus.length() - 1);
+                        }
+                    }
+
+                    Operations cal = new Operations(calculus);
+                    lbDisplay1.setText(calculus);
+                    calculus = String.valueOf(cal.Calculate());
+                    lbDisplay2.setText(calculus);
                 });
             } else {
                 int index = i;
                 newButton.addActionListener(l -> {
 
-                    if (Calculate.isOperator(stringi[index].charAt(0)) && stringi[index] != "%"
-                            && calculus.charAt(calculus.length() - 1) == '%' && !(calculus.length() < 1)) {
-                    } else if (Calculate.isOperator(stringi[index].charAt(0)) && (calculus.length() < 1
-                            || Calculate.isOperator(calculus.charAt(calculus.length() - 1)))) {
+                    if (Operations.isOperator(stringi[index].charAt(0)) && stringi[index] != "%" && calculus.charAt(calculus.length() - 1) == '%' && !(calculus.length() < 1)) {}
+                    else if (Operations.isOperator(stringi[index].charAt(0)) && (calculus.length() < 1 || Operations.isOperator(calculus.charAt(calculus.length() - 1)))) {
                         return;
                     }
 
@@ -104,6 +116,7 @@ public class frCalculator extends JFrame {
         pnDisplay.add(pnDisplay1);
         pnDisplay.add(pnDisplay2);
 
+        pnDisplay1.add(lbDisplay1);
         pnDisplay2.add(lbDisplay2);
         pnCalculator.add(pnDisplay, BorderLayout.NORTH);
         pnCalculator.add(pnButtons, BorderLayout.CENTER);

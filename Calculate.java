@@ -1,48 +1,60 @@
 import java.util.ArrayList;
 
 public class Calculate {
-    private static char[] standardOperators = { '%', '÷', 'x', '-', '+' };
-    private ArrayList<Character> operators = new ArrayList<Character>();
-    private ArrayList<Float> nums = new ArrayList<Float>();
 
-    Calculate(String calculus) {
-        String num = "";
-        for (int i = 0; i < calculus.length(); i++) {
-            boolean operator = false;
-            if (isOperator(calculus.charAt(i))) {
-                operators.add(Character.valueOf(calculus.charAt(i)));
-                operator = true;
+    public static Float calculateExpression(ArrayList<Float> nums, ArrayList<Character> operators) {
+        
+        for (int i = 0; i < operators.size(); i++) {
+            if (operators.get(i) == '%') {
+                nums.set(i, Percentage(nums.get(i)));
+                operators.remove(i);
+                i--;
+                break;
             }
+        }
+        
+        Float result = nums.get(0);
+        
+        for (int i = 0; i < operators.size(); i++) {
+            switch (operators.get(i)) {
+                case '÷':
+                    result = Div(result, nums.get(i + 1));
+                    break;
 
-            if (!operator) {
-                num += calculus.charAt(i);
+                case 'x':
+                    result = Mul(result, nums.get(i + 1));
+                    break;
+
+                case '-':
+                    result = Sub(result, nums.get(i + 1));
+                    break;
+
+                case '+':
+                    result = Sum(result, nums.get(i + 1));
+                    break;
             }
-            if (operator || i == (calculus.length() - 1)) {
-                Float floatNum = Float.parseFloat(num);
-                nums.add(floatNum);
-                num = "";
-                operator = false;
-            }
         }
-        for (Float f : nums) {
-            System.out.println(f);
-        }
-        for (char c : operators) {
-            System.out.println(c);
-        }
+
+        return result;
     }
 
-    public Float calculateAll() {
-
-        return Float.valueOf("2.2");
+    private static Float Sum(Float num1, Float num2) {
+        return num1 + num2;
     }
 
-    public static boolean isOperator(char c) {
-        for (char operator : standardOperators) {
-            if (c == operator) {
-                return true;
-            }
-        }
-        return false;
+    private static Float Sub(Float num1, Float num2) {
+        return num1 - num2;
+    }
+
+    private static Float Mul(Float num1, Float num2) {
+        return num1 * num2;
+    }
+
+    private static Float Div(Float num1, Float num2) {
+        return num1 / num2;
+    }
+
+    private static Float Percentage(Float num) {
+        return num / 100;
     }
 }
