@@ -28,6 +28,7 @@ public class frCalculator extends JFrame {
 
         JLabel lbDisplay1 = new JLabel("");
         lbDisplay1.setFont(new Font("Arial", Font.BOLD, 30));
+        lbDisplay1.setForeground(Color.GRAY);
 
         JPanel pnDisplay2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
