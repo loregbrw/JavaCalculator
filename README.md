@@ -15,12 +15,12 @@ To run the calculator application on your local machine, follow these steps:
 
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/java-swing-calculator.git
+git clone https://github.com/loregbrw/JavaCalculator.git
 ```
 
 2. Navigate to the project directory:
 ```
-cd java-swing-calculator
+cd JavaCalculator
 ```
 
 3. Compile the Java files:
