@@ -24,7 +24,6 @@ public class Operations {
             }
             if (operator || i == (calculus.length() - 1)) {
                 Float floatNum = Float.parseFloat(num);
-                System.out.println(floatNum.floatValue());
                 nums.add(floatNum);
                 num = "";
                 operator = false;
