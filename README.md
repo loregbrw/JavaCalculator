@@ -2,14 +2,12 @@
 This repository contains a simple calculator application implemented in Java using the Swing framework. The calculator allows users to perform basic arithmetic
 operations such as addition, subtraction, multiplication, division, and percentage calculations.
 
-##
 ### Features
 - **Basic Arithmetic Operations:** Addition, subtraction, multiplication, and division.
 - **Percentage Calculation:** Calculate percentages of numbers.
 - **Clear Functionality:** Clear the display or remove the last entered character.
 - **User-Friendly Interface:** Designed with a clean and intuitive user interface using Java Swing components.
 
-##
 ### Getting Started
 To run the calculator application on your local machine, follow these steps:
 
@@ -33,7 +31,6 @@ javac *.java
 java Main
 ```
 
-##
 ### Usage
 Enter numbers and perform arithmetic operations using the buttons provided.
 - Press the "=" button to calculate the result.
@@ -41,10 +38,8 @@ Enter numbers and perform arithmetic operations using the buttons provided.
 - Press the "c" button to clear the input.
 - Use the "⌫" button to delete the last digit entered. 
 
-##
 ### Dependencies
 Java Development Kit (JDK) 8 or higher.
 
-##
 ### License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
